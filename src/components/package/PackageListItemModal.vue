@@ -11,12 +11,19 @@
     </v-card-text>
      <v-card-text>
       <h3 class="mb-2">Versions</h3>
-      <v-chip
-        v-for="version in versionsList"
-        :key="version"
-        class="mr-1 mb-1"
-        small
-      >{{ version }}</v-chip>
+      <v-skeleton-loader
+        v-if="versionsLoading"
+        type="heading@10"
+        class="d-flex"
+      ></v-skeleton-loader>
+      <template v-else>
+        <v-chip
+          v-for="version in versionsList"
+          :key="version"
+          class="mr-1 mb-1"
+          small
+        >{{ version }}</v-chip>
+      </template>
     </v-card-text>
   </v-card>
 </template>
@@ -33,7 +40,18 @@ export default {
     },
   },
   computed: {
-    ...mapState(['versionsList']),
+    ...mapState(['versionsList', 'versionsLoading']),
+  },
+  methods: {
+    chipSkeletonRandomWidth() {
+      return Math.round(150 * Math.random()) + 150;
+    },
   },
 };
 </script>
+
+<style lang="scss">
+  .v-skeleton-loader__heading {
+    margin-right: 4px;
+  }
+</style>

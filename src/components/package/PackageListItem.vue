@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import scoreToColor from '@/util/scoreToColor';
 import PackageListItemModal from '@/components/package/PackageListItemModal.vue';
 import { DEFAULT_DATE_FORMAT_LOCALE } from '@/config/config';
@@ -110,12 +110,9 @@ export default {
   },
   methods: {
     ...mapActions(['selectPackage']),
-    ...mapMutations(['setVersionsList']),
     onDialog(visible) {
       if (visible) {
         this.selectPackage(this.item.package.name);
-      } else {
-        this.setVersionsList([]);
       }
     },
   },
