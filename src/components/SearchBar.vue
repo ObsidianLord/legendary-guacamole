@@ -6,6 +6,7 @@
     hide-details
     outlined
     :dense="$vuetify.breakpoint.xsOnly"
+    placeholder="start typing..."
     prepend-inner-icon="mdi-magnify"
     @input="search"
   ></v-text-field>
