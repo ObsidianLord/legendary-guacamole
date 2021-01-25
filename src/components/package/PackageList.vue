@@ -12,7 +12,11 @@
       :item-height="itemHeight"
     >
       <template v-slot:default="{ item, index }">
-        <PackageListItemSkeleton v-if="loading"/>
+        <v-skeleton-loader
+          v-if="loading"
+          :height="itemHeight"
+          type="list-item-three-line, divider"
+        ></v-skeleton-loader>
         <PackageListItem
           v-else
           :key="item.name"
@@ -33,7 +37,6 @@
 <script>
 import { mapState } from 'vuex';
 import PackageListItem from '@/components/package/PackageListItem.vue';
-import PackageListItemSkeleton from '@/components/package/PackageListItemSkeleton.vue';
 import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_PAGINATION_BLOCK_HEIGHT,
@@ -43,7 +46,7 @@ import {
 
 export default {
   name: 'PackageList',
-  components: { PackageListItem, PackageListItemSkeleton },
+  components: { PackageListItem },
 
   data: () => ({
     maxHeight: 0,
