@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
   DEFAULT_PAGE_SIZE,
   NPM_REGISTRY_SEARCH_ENDPOINT,
+  URL_PARAM_DELIMITER,
   JSDELIVR_PACKAGE_VERSIONS_ENDPOINT,
   JSDELIVR_PACKAGE_VERSION_USAGE_STATS_ENDPOINT,
 } from '@/config/config';
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     searchInitiated: false,
     loading: false,
     versionsLoading: false,
+    usageStatsLoading: false,
   },
   mutations: {
     setSearchQuery(state, searchQuery) {
@@ -61,6 +63,9 @@ export default new Vuex.Store({
     setVersionsLoading(state, versionsLoading) {
       state.versionsLoading = versionsLoading;
     },
+    setUsageStatsLoading(state, usageStatsLoading) {
+      state.usageStatsLoading = usageStatsLoading;
+    },
   },
   actions: {
     fetchPackageList({ commit, state }, { query, page }) {
@@ -90,30 +95,36 @@ export default new Vuex.Store({
         commit('setLoading', false);
       });
     },
+
     selectPackage({ commit, dispatch }, packageName) {
       commit('setSelectedPackage', packageName);
       commit('setVersionsLoading', true);
-      axios.get(JSDELIVR_PACKAGE_VERSIONS_ENDPOINT.split('{}').join(packageName))
-        .then((result) => {
-          commit('setVersionsList', result.data.versions);
-          commit('setVersionsLoading', false);
-          dispatch('selectVersion', result.data.versions[0]);
-        }).catch((error) => {
-          console.error(error);
-          commit('setVersionsList', []);
-          commit('setVersionsLoading', false);
-        });
+      axios.get(
+        JSDELIVR_PACKAGE_VERSIONS_ENDPOINT.split(URL_PARAM_DELIMITER).join(packageName),
+      ).then((result) => {
+        commit('setVersionsList', result.data.versions);
+        commit('setVersionsLoading', false);
+        dispatch('selectVersion', result.data.versions[0]);
+      }).catch((error) => {
+        console.error(error);
+        commit('setVersionsList', []);
+        commit('setVersionsLoading', false);
+      });
     },
+
     selectVersion({ commit, state }, packageVersion) {
       commit('setSelectedVersion', packageVersion);
+      commit('setUsageStatsLoading', true);
       axios.get(
-        JSDELIVR_PACKAGE_VERSION_USAGE_STATS_ENDPOINT.split('{}')
+        JSDELIVR_PACKAGE_VERSION_USAGE_STATS_ENDPOINT.split(URL_PARAM_DELIMITER)
           .join(`${state.selectedPackage}@${packageVersion}`),
       ).then((result) => {
         commit('setVersionUsageStats', result.data);
+        commit('setUsageStatsLoading', false);
       }).catch((error) => {
         console.error(error);
         commit('setVersionUsageStats', {});
+        commit('setUsageStatsLoading', false);
       });
     },
   },

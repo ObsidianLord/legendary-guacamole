@@ -23,8 +23,9 @@
       <v-data-table
         :headers="tableHeaders"
         :items="tableItems"
+        :loading="usageStatsLoading"
+        dense
         item-key="date"
-        class="elevation-1"
       ></v-data-table>
     </v-card-text>
   </v-card>
@@ -54,7 +55,13 @@ export default {
     ],
   }),
   computed: {
-    ...mapState(['versionsList', 'versionsLoading', 'selectedVersion', 'versionUsageStats']),
+    ...mapState([
+      'versionsList',
+      'versionsLoading',
+      'selectedVersion',
+      'versionUsageStats',
+      'usageStatsLoading',
+    ]),
     versionString() {
       return `v${this.item.package.version}`;
     },
@@ -70,15 +77,6 @@ export default {
   },
   methods: {
     ...mapActions(['selectVersion']),
-    chipSkeletonRandomWidth() {
-      return Math.round(150 * Math.random()) + 150;
-    },
   },
 };
 </script>
-
-<style lang="scss">
-  .v-skeleton-loader__heading {
-    margin-right: 4px;
-  }
-</style>
