@@ -98,6 +98,7 @@ export default new Vuex.Store({
 
     selectPackage({ commit, dispatch }, packageName) {
       commit('setSelectedPackage', packageName);
+      commit('setUsageStatsLoading', true);
       commit('setVersionsLoading', true);
       axios.get(
         JSDELIVR_PACKAGE_VERSIONS_ENDPOINT.split(URL_PARAM_DELIMITER).join(packageName),
