@@ -45,10 +45,10 @@
               {{ dateString }}
             </v-list-item-action-text>
             <v-list-item-action-text>
-              <span
-                class="text-h4"
-                :style="scoreColor"
-              >{{ scoreString }}</span>
+              <v-chip
+                :color="scoreColor"
+                label
+              ><span class="text-h6">{{ scoreString }}</span></v-chip>
             </v-list-item-action-text>
           </v-list-item-action>
         </v-list-item>
@@ -102,10 +102,7 @@ export default {
       return (this.item.score.final * 10).toFixed(1);
     },
     scoreColor() {
-      return {
-        color: scoreToColor(this.item.score.final),
-        textShadow: '0 0 1px black',
-      };
+      return scoreToColor(this.item.score.final);
     },
   },
   methods: {
