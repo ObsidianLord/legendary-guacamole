@@ -45,10 +45,22 @@
               {{ dateString }}
             </v-list-item-action-text>
             <v-list-item-action-text>
-              <v-chip
-                :color="scoreColor"
-                label
-              ><span class="text-h6">{{ scoreString }}</span></v-chip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip
+                    :color="scoreColor"
+                    label
+                    v-bind="attrs"
+                    v-on="on"
+                  ><span class="text-h6">{{ scoreString }}</span></v-chip>
+                </template>
+                <div class="text-right">
+                  <strong>Final score: {{ item.score.final.toFixed(3) }}</strong><br>
+                  <span>Quality score: {{ item.score.detail.quality.toFixed(3) }}</span><br>
+                  <span>Popularity score: {{ item.score.detail.popularity.toFixed(3) }}</span><br>
+                  <span>Maintenance score: {{ item.score.detail.maintenance.toFixed(3) }}</span><br>
+                </div>
+              </v-tooltip>
             </v-list-item-action-text>
           </v-list-item-action>
         </v-list-item>

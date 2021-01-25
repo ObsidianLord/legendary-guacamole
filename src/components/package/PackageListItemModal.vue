@@ -6,13 +6,25 @@
     </v-card-title>
     <v-card-text>
       <div class="ml-2 float-right">
-        <v-chip
-          :color="scoreColor"
-          label
-          large
-        ><span class="text-h5">{{ scoreString }}</span></v-chip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-chip
+              :color="scoreColor"
+              label
+              large
+              v-bind="attrs"
+              v-on="on"
+            ><span class="text-h5">{{ scoreString }}</span></v-chip>
+          </template>
+          <div class="text-right">
+            <strong>Final score: {{ item.score.final.toFixed(3) }}</strong><br>
+            <span>Quality score: {{ item.score.detail.quality.toFixed(3) }}</span><br>
+            <span>Popularity score: {{ item.score.detail.popularity.toFixed(3) }}</span><br>
+            <span>Maintenance score: {{ item.score.detail.maintenance.toFixed(3) }}</span><br>
+          </div>
+        </v-tooltip>
       </div>
-      <div>{{ item.package.description }}</div>
+      <div style="min-height: 54px">{{ item.package.description }}</div>
     </v-card-text>
     <v-card-text>
       <v-select
