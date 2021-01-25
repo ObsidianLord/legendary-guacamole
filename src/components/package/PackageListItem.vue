@@ -2,7 +2,7 @@
   <div>
     <v-dialog
       v-model="dialog"
-      width="800"
+      :width="modalWidth"
       @input="onDialog"
     >
       <template v-slot:activator="{ on, attrs }">
@@ -65,7 +65,10 @@
 import { mapActions } from 'vuex';
 import scoreToColor from '@/util/scoreToColor';
 import PackageListItemModal from '@/components/package/PackageListItemModal.vue';
-import { DEFAULT_DATE_FORMAT_LOCALE } from '@/config/config';
+import {
+  DEFAULT_DATE_FORMAT_LOCALE,
+  DEFAUT_MODAL_WIDTH,
+} from '@/config/config';
 
 export default {
   components: { PackageListItemModal },
@@ -83,6 +86,7 @@ export default {
   },
   data: () => ({
     dialog: false,
+    modalWidth: DEFAUT_MODAL_WIDTH,
   }),
   computed: {
     uniqueKeywords() {

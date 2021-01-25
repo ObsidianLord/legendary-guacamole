@@ -12,7 +12,6 @@
             class="ml-1"
             href="https://github.com/ObsidianLord/legendary-guacamole"
             icon
-            target="_blank"
           >
             <v-icon size="24px">
               mdi-github

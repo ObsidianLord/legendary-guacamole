@@ -54,6 +54,7 @@ export default {
 
   mounted() {
     window.addEventListener('resize', this.calculateMaxHeight, { passive: true });
+    window.addEventListener('fullscreenchange', this.calculateMaxHeight, { passive: true });
     this.calculateMaxHeight();
   },
 

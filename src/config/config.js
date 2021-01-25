@@ -4,6 +4,7 @@ export const DEFAULT_SEARCH_DEBOUNCE_TIME = 300;
 
 // appearance options
 export const DEFAULT_DATE_FORMAT_LOCALE = 'en-US';
+export const DEFAUT_MODAL_WIDTH = 800;
 export const DEFAULT_PAGINATION_BLOCK_HEIGHT = 100;
 export const DEFAULT_ITEM_ROW_HEIGHT = 68;
 export const DEFAULT_SM_ITEM_ROW_HEIGHT = 104;

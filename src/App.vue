@@ -32,7 +32,6 @@ import SearchBar from '@/components/SearchBar.vue';
 
 export default {
   name: 'App',
-
   components: {
     AppFooter,
     AppHeader,
@@ -40,9 +39,5 @@ export default {
     PackagePagination,
     SearchBar,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
