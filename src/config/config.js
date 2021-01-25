@@ -9,4 +9,5 @@ export const DEFAULT_VISIBLE_PAGES = 1;
 export const DEFAULT_SM_VISIBLE_PAGES = 6;
 
 export const NPM_REGISTRY_SEARCH_ENDPOINT = 'https://registry.npmjs.org/-/v1/search';
-export const JSDELIVR_PACKAGE_VERSIONS_ENDPOINT = 'https://data.jsdelivr.com/v1/package/npm/';
+export const JSDELIVR_PACKAGE_VERSIONS_ENDPOINT = 'https://data.jsdelivr.com/v1/package/npm/{}';
+export const JSDELIVR_PACKAGE_VERSION_USAGE_STATS_ENDPOINT = 'https://data.jsdelivr.com/v1/package/npm/{}/stats/date';
