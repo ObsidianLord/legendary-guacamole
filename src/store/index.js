@@ -20,8 +20,9 @@ export default new Vuex.Store({
     totalPackages: 0,
     currentPage: 1,
 
-    loading: false,
     searchInitiated: false,
+    loading: false,
+    versionsLoading: false,
   },
   mutations: {
     setSearchQuery(state, searchQuery) {
@@ -42,11 +43,14 @@ export default new Vuex.Store({
     setCurrentPage(state, currentPage) {
       state.currentPage = currentPage;
     },
+    setSearchInitiated(state) {
+      state.searchInitiated = true;
+    },
     setLoading(state, loading) {
       state.loading = loading;
     },
-    setSearchInitiated(state) {
-      state.searchInitiated = true;
+    setVersionsLoading(state, versionsLoading) {
+      state.versionsLoading = versionsLoading;
     },
   },
   actions: {
@@ -78,9 +82,15 @@ export default new Vuex.Store({
       });
     },
     selectPackage({ commit }, packageName) {
+      commit('setVersionsLoading', true);
       axios.get(JSDELIVR_PACKAGE_VERSIONS_ENDPOINT + packageName)
         .then((result) => {
           commit('setVersionsList', result.data.versions);
+          commit('setVersionsLoading', false);
+        }).catch((error) => {
+          console.error(error);
+          commit('setVersionsList', []);
+          commit('setVersionsLoading', false);
         });
     },
   },
